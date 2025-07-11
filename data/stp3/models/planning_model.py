@@ -3,9 +3,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 
-from src.layers.convolutions import Bottleneck
-from src.layers.temporal import SpatialGRU, Dual_GRU, BiGRU
-from src.cost import Cost_Function
+from stp3.layers.convolutions import Bottleneck
+from stp3.layers.temporal import SpatialGRU, Dual_GRU, BiGRU
+from stp3.cost import Cost_Function
 
 class Planning(nn.Module):
     def __init__(self, cfg, feature_channel, gru_input_size=6, gru_state_size=256):

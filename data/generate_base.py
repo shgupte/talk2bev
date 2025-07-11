@@ -1,3 +1,8 @@
+# Update the path so directories are found
+import sys
+sys.path.insert(0, '/content/talk2bev/data')
+
+
 from argparse import ArgumentParser
 from PIL import Image
 import torch
