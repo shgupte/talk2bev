@@ -6,6 +6,5 @@
 __pycache__
 __pycache__/*
 nuscenes/
-FastSAM/
 fastsam/__pycache__/
-llava/
+
