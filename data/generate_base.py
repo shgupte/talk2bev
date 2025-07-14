@@ -52,11 +52,11 @@ from nuscenes.utils.geometry_utils import view_points
 # ========================================
 #             SAM Initialization
 # ========================================
-def init_sam(model_type = "vit_h", checkpoint="/home/t1/vikrant.dewangan/llm-bev/MiniGPT-4/sam_vit_h_4b8939.pth", device="cuda:0"):
+def init_sam(model_type = "vit_h", checkpoint="/content/drive/MyDrive/ZhouLab/Talk2Bev/sam_vit_h_4b8939.pth", device="cuda:0"):
     from segment_anything import sam_model_registry, SamPredictor
 
 
-    sam = sam_model_registry[model_type](checkpoint="/home/t1/vikrant.dewangan/llm-bev/MiniGPT-4/sam_vit_h_4b8939.pth")
+    sam = sam_model_registry[model_type](checkpoint="/content/drive/MyDrive/ZhouLab/Talk2Bev/sam_vit_h_4b8939.pth")
     sam.to(device=device)
     predictor = SamPredictor(sam)
     return predictor

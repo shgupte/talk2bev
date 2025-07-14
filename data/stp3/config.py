@@ -189,6 +189,8 @@ def get_cfg(args=None, cfg_dict=None):
     cfg = _C.clone()
 
     if cfg_dict is not None:
+
+        cfg_dict.pop('hparams', None)
         # Create a temporary CfgNode from the dictionary loaded from the checkpoint
         tmp = CfgNode(cfg_dict)
 
