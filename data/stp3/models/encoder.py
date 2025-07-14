@@ -83,7 +83,7 @@ class Encoder(nn.Module):
         # Head
         endpoints['reduction_{}'.format(len(endpoints) + 1)] = x
 
-        index = np.log2(self.downsample).astype(np.int)
+        index = np.log2(self.downsample).astype(int)
         input_1 = endpoints['reduction_{}'.format(index + 1)]
         input_2 = endpoints['reduction_{}'.format(index)]
 
