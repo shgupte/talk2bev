@@ -37,7 +37,7 @@ from PIL import Image
 from minigpt4.common.config import Config
 from minigpt4.common.dist_utils import get_rank
 from minigpt4.common.registry import registry
-from minigpt4.conversation.conversation import Chat, CONV_VISION
+from minigpt4.conversation.conversation import Chat, CONV_VISION_minigptv2
 
 # imports modules for registration
 from minigpt4.datasets.builders import *
@@ -174,7 +174,7 @@ cam_names = ["CAM_FRONT_LEFT", "CAM_FRONT", "CAM_FRONT_RIGHT", "CAM_BACK_LEFT", 
 def eval(args):
     data_path = args.data_path
     save_path = args.save_path
-    trainer = TrainingModule.load_from_checkpoint(args.checkpoint, strict=True)
+    trainer = TrainingModule.load_from_checkpoint(args.checkpoint, strict=False)
     trainer.cfg.INSTANCE_FLOW.ENABLED = True
     trainer.cfg.INSTANCE_SEG.ENABLED = True    
     print(f'Loaded weights from \n {args.checkpoint}')

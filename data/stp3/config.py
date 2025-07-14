@@ -189,14 +189,23 @@ def get_cfg(args=None, cfg_dict=None):
     cfg = _C.clone()
 
     if cfg_dict is not None:
+        # Create a temporary CfgNode from the dictionary loaded from the checkpoint
         tmp = CfgNode(cfg_dict)
-        for i in tmp.COST_FUNCTION:
-            tmp.COST_FUNCTION.update({i: float(tmp.COST_FUNCTION.get(i))})
+
+        # --- CORRECTED PART ---
+        # This block now correctly iterates over the CfgNode keys
+        # and converts the values to floats without crashing.
+        if 'COST_FUNCTION' in tmp and tmp.COST_FUNCTION is not None:
+            for key in tmp.COST_FUNCTION.keys():
+                current_value = getattr(tmp.COST_FUNCTION, key)
+                tmp.COST_FUNCTION[key] = float(current_value)
+
+        # Merge the modified temporary config into the main one
         cfg.merge_from_other_cfg(tmp)
 
     if args is not None:
         if args.config_file:
             cfg.merge_from_file(args.config_file)
         cfg.merge_from_list(args.opts)
-        # cfg.freeze()
+
     return cfg
