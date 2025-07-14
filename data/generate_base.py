@@ -160,7 +160,7 @@ def extract_mask(predictor, cam_img, points):
     return img_copy, masks
 
 device = torch.device('cuda:0')
-device2 = torch.device('cuda:1')
+device2 = torch.device('cuda:0')
 
 predictor = init_sam(device=device2)
 print("Initializaed SAM")
