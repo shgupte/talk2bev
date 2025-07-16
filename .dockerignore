@@ -1,0 +1,20 @@
+# Example .dockerignore
+
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+Dockerfile
+
+# Python virtual environment
+.venv
+venv
+*.pyc
+
+# IDE / OS specific
+.idea/
+.vscode/
+__pycache__/
+.DS_Store

@@ -325,17 +325,44 @@ def eval(args):
             matched_imgs.append(img_cropped)
             objects_json.append(obj)
 
-        for matched_img_ind, matched_img in enumerate(matched_imgs):
-            np.save(os.path.join(save_path, str(cur_scene_token[0]) + "_" + "{0:0=6d}".format(index), "crops", f"{matched_img_ind + 1}_matched_img_pred.npy"), matched_img)
-        for cimg_ind, cimg in enumerate(cam_imgs):
-            np.save(os.path.join(save_path, str(cur_scene_token[0]) + "_" + "{0:0=6d}".format(index), "cam_imgs", f"{cimg_ind + 1}_cimg.npy"), cimg)
+        # for matched_img_ind, matched_img in enumerate(matched_imgs):
+        #     np.save(os.path.join(save_path, str(cur_scene_token[0]) + "_" + "{0:0=6d}".format(index), "crops", f"{matched_img_ind + 1}_matched_img_pred.npy"), matched_img)
+        # for cimg_ind, cimg in enumerate(cam_imgs):
+        #     np.save(os.path.join(save_path, str(cur_scene_token[0]) + "_" + "{0:0=6d}".format(index), "cam_imgs", f"{cimg_ind + 1}_cimg.npy"), cimg)
         
+        # if args.bev == "pred":
+        #     with open(os.path.join(save_path, str(cur_scene_token[0]) + "_" + "{0:0=6d}".format(index), "answer_pred_both.json"), "w") as f:
+        #         json.dump(objects_json, f, indent=4)
+        # else:
+        #     with open(os.path.join(save_path, str(cur_scene_token[0]) + "_" + "{0:0=6d}".format(index), "answer_gt.json"), "w") as f:
+        #         json.dump(objects_json, f, indent=4)
+
+        # --- START: MODIFIED CODE ---
+
+        # Define the base path for the current scene
+        scene_path = os.path.join(save_path, str(cur_scene_token[0]) + "_" + "{0:0=6d}".format(index))
+
+        # Create and save cropped images
+        crops_dir = os.path.join(scene_path, "crops")
+        os.makedirs(crops_dir, exist_ok=True)
+        for matched_img_ind, matched_img in enumerate(matched_imgs):
+            np.save(os.path.join(crops_dir, f"{matched_img_ind + 1}_matched_img_pred.npy"), matched_img)
+
+        # Create and save full camera images
+        cam_imgs_dir = os.path.join(scene_path, "cam_imgs")
+        os.makedirs(cam_imgs_dir, exist_ok=True)
+        for cimg_ind, cimg in enumerate(cam_imgs):
+            np.save(os.path.join(cam_imgs_dir, f"{cimg_ind + 1}_cimg.npy"), cimg)
+        
+        # Save the JSON file
         if args.bev == "pred":
-            with open(os.path.join(save_path, str(cur_scene_token[0]) + "_" + "{0:0=6d}".format(index), "answer_pred_both.json"), "w") as f:
+            with open(os.path.join(scene_path, "answer_pred_both.json"), "w") as f:
                 json.dump(objects_json, f, indent=4)
         else:
-            with open(os.path.join(save_path, str(cur_scene_token[0]) + "_" + "{0:0=6d}".format(index), "answer_gt.json"), "w") as f:
+            with open(os.path.join(scene_path, "answer_gt.json"), "w") as f:
                 json.dump(objects_json, f, indent=4)
+
+        # --- END: MODIFIED CODE ---
 
         print("DONE SAVED");print();print();print();print();
 
